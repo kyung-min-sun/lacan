@@ -14,15 +14,20 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+plugin hooks {
+  provider = '@zenstackhq/swr'
+  output = "./src/lib/hooks"
+}
+
 model JournalEntry {
     id        Int      @id @default(autoincrement())
     title     String
-    text      String   @db.LongText
+    text      String  
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    fileId    String?
     file      File?    @relation(fields: [fileId], references: [id])
+    fileId    Int?
 
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
@@ -39,7 +44,6 @@ model File {
 
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
-
 
     @@index([name])
 }
@@ -79,7 +83,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    journalEntries JournalEntry[]
+    files File[]
 }
 
 model VerificationToken {
