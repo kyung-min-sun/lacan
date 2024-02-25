@@ -61,8 +61,8 @@ export class MediaClient {
   private static getClient(): S3Client {
     return new S3Client({
       credentials: {
-        accessKeyId: env.AWS_ACCESS_KEY,
-        secretAccessKey: env.AWS_SECRET_KEY,
+        accessKeyId: env.APP_AWS_ACCESS_KEY,
+        secretAccessKey: env.APP_AWS_SECRET_KEY,
       },
       region: env.AWS_S3_REGION,
     });
