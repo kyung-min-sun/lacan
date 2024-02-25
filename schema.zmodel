@@ -32,6 +32,7 @@ model JournalEntry {
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
 
+    @@allow('all', createdBy == auth())
     @@index([title])
 }
 
