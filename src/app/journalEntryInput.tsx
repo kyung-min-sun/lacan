@@ -25,12 +25,16 @@ export function JournalEntryInput({
       setError("sorry, entry can't be blank...");
       return;
     }
-    const newEntry = await createEntry({ ...entry, createdById: user.id });
+
+    const newEntryPromise = createEntry({ ...entry, createdById: user.id });
+    setEntry({ title: "", text: "" });
+
+    const newEntry = await newEntryPromise;
+
     if (!newEntry) {
       setError("there was an issue with your submission...");
       return;
     }
-    setEntry({ title: "", text: "" });
     onCreate(newEntry);
   };
 
