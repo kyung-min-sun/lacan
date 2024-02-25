@@ -1,6 +1,6 @@
 import { api } from "~/trpc/server";
 
-export function JournalEntrySubmitButton({
+export async function JournalEntrySubmitButton({
   entry,
   setError,
   onSubmit: _onSubmit,

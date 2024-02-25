@@ -32,16 +32,6 @@ export function JournalEntryInput({
           setEntry((entry) => ({ ...entry, text: e.target.value }))
         }
       />
-      <JournalEntrySubmitButton
-        entry={{ ...entry, createdById: user.id }}
-        onSubmit={() => {
-          setEntry({ title: "Your Title", text: "" });
-          setErrorMessage("");
-          onCreate();
-        }}
-        setError={setErrorMessage}
-      />
-      {errorMessage && <span>{errorMessage}</span>}
     </div>
   );
 }
