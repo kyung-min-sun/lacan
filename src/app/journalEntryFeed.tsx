@@ -15,16 +15,16 @@ export function JournalEntryFeed({
 }) {
   const [entries, setEntries] = useState<typeof journalEntries>(journalEntries);
   return (
-    <>
+    <div className="flex flex-col gap-8 p-4">
       <JournalEntryInput
         user={user}
         onCreate={(newEntry) => setEntries((e) => [...e, newEntry])}
       />
-      <section className="flex flex-col gap-2 p-2">
+      <section className="flex flex-col items-center gap-4">
         {entries.map((entry) => (
           <JournalEntryCard entry={entry} key={entry.id} />
         ))}
       </section>
-    </>
+    </div>
   );
 }
