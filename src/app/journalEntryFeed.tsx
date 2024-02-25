@@ -1,26 +1,35 @@
 "use client";
 
 import { type User } from "next-auth";
-import { useFindManyJournalEntry } from "~/lib/hooks";
-import { JournalEntryInput } from "./journalEntryInput";
 import Image from "next/image";
+import { useState } from "react";
+import { JournalEntryInput } from "./journalEntryInput";
+import { type JournalEntry } from "@prisma/client";
 
-export function JournalEntryFeed({ user }: { user: User }) {
-  const { data: journalEntries, mutate } = useFindManyJournalEntry({
-    include: { file: true },
-  });
+export function JournalEntryFeed({
+  user,
+  journalEntries,
+}: {
+  user: User;
+  journalEntries: (JournalEntry & { images: { url: string }[] })[];
+}) {
+  const [entries, setEntries] = useState<typeof journalEntries>(journalEntries);
+  console.log(entries);
   return (
-    <div>
-      <JournalEntryInput user={user} onCreate={mutate} />
+    <>
+      <JournalEntryInput
+        user={user}
+        onCreate={(newEntry) => setEntries((e) => [...e, newEntry])}
+      />
       <section className="flex flex-col gap-2 p-2">
-        {journalEntries?.map((entry) => (
+        {entries.map((entry) => (
           <div className="border" key={entry.id}>
-            <Image src={entry.file?.url ?? ""} alt={entry.title} />
+            <a href={entry.images[0]?.url ?? ""}>hi</a>
             <h3>{entry.title}</h3>
             <span>{entry.text}</span>
           </div>
         ))}
       </section>
-    </div>
+    </>
   );
 }

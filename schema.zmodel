@@ -26,8 +26,7 @@ model JournalEntry {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    file      File?    @relation(fields: [fileId], references: [id])
-    fileId    Int?
+    images      ImageFile[]
 
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
@@ -36,12 +35,13 @@ model JournalEntry {
     @@index([title])
 }
 
-model File {
+model ImageFile {
     id        Int      @id @default(autoincrement())
     name      String
     url       String
 
-    entries   JournalEntry[]
+    entry JournalEntry? @relation(fields: [entryId], references: [id])
+    entryId Int? 
 
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
@@ -85,7 +85,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     journalEntries JournalEntry[]
-    files File[]
+    files ImageFile[]
 }
 
 model VerificationToken {

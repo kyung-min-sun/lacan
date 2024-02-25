@@ -12,25 +12,26 @@ generator client {
     provider = "prisma-client-js"
 }
 
+/// @@allow('all', createdBy == auth())
 model JournalEntry {
     id Int @id() @default(autoincrement())
     title String
     text String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
-    file File? @relation(fields: [fileId], references: [id])
-    fileId Int?
+    images ImageFile[]
     createdBy User @relation(fields: [createdById], references: [id])
     createdById String
 
     @@index([title])
 }
 
-model File {
+model ImageFile {
     id Int @id() @default(autoincrement())
     name String
     url String
-    entries JournalEntry[]
+    entry JournalEntry? @relation(fields: [entryId], references: [id])
+    entryId Int?
     createdBy User @relation(fields: [createdById], references: [id])
     createdById String
 
@@ -72,7 +73,7 @@ model User {
     accounts Account[]
     sessions Session[]
     journalEntries JournalEntry[]
-    files File[]
+    files ImageFile[]
 }
 
 model VerificationToken {

@@ -14,24 +14,25 @@ export const journalEntryRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx: { db }, input: { text, title, createdById } }) => {
       const openai = new OpenAI();
-      const image = await openai.images.generate({
+      const generation = await openai.images.generate({
         prompt: `Create an image for the following dream, titled ${title}: ${text}`,
       });
-      const imageUrl = image.data[0];
-      if (!imageUrl?.url) return null;
-      return await db.file.create({
+      return await db.journalEntry.create({
         data: {
-          name: title,
-          url: imageUrl.url,
+          title,
+          text,
           createdById,
-          entries: {
-            create: {
-              title,
-              text,
-              createdById,
+          images: {
+            createMany: {
+              data: generation.data
+                .filter(
+                  (image): image is { url: string } => image.url !== undefined,
+                )
+                .map(({ url }) => ({ name: title, url, createdById })),
             },
           },
         },
+        include: { images: true },
       });
     }),
 });
