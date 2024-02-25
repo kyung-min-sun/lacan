@@ -16,7 +16,16 @@ export class MediaError extends Error {}
 export class MediaClient {
   private static s3Client: S3Client = this.getClient();
 
-  public static async get(key: Key): Promise<MediaUrl> {
+  public static async get(key: Key): Promise<string | undefined> {
+    const response = await this.s3Client.send(
+      new GetObjectCommand({
+        Bucket: env.AWS_S3_BUCKET,
+        Key: key,
+      }),
+    );
+    return await response.Body?.transformToString();
+  }
+  public static async createUrl(key: Key): Promise<MediaUrl> {
     return (await getSignedUrl(
       this.s3Client,
       new GetObjectCommand({
@@ -55,7 +64,7 @@ export class MediaClient {
         accessKeyId: env.AWS_ACCESS_KEY,
         secretAccessKey: env.AWS_SECRET_KEY,
       },
-      region: process.env.S3_REGION!,
+      region: env.AWS_S3_REGION,
     });
   }
 }

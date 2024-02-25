@@ -29,7 +29,7 @@ model JournalEntry {
 model ImageFile {
     id Int @id() @default(autoincrement())
     name String
-    url String
+    s3Key String
     entry JournalEntry? @relation(fields: [entryId], references: [id])
     entryId Int?
     createdBy User @relation(fields: [createdById], references: [id])
