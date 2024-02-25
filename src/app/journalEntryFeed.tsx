@@ -21,9 +21,11 @@ export function JournalEntryFeed({
         onCreate={(newEntry) => setEntries((e) => [...e, newEntry])}
       />
       <section className="flex flex-col items-center gap-4">
-        {entries.map((entry) => (
-          <JournalEntryCard entry={entry} key={entry.id} />
-        ))}
+        {entries
+          .sort((e1, e2) => e2.createdAt.getTime() - e1.createdAt.getTime())
+          .map((entry) => (
+            <JournalEntryCard entry={entry} key={entry.id} />
+          ))}
       </section>
     </div>
   );
