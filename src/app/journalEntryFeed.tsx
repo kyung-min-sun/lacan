@@ -25,8 +25,8 @@ export function JournalEntryFeed({
       entry.createdAt.getFullYear() == today.getFullYear(),
   );
 
-  const writeEntry = (todayEntry == undefined && !isLoading) || true;
-  const loadEntry = (todayEntry == undefined && isLoading) || true;
+  const writeEntry = todayEntry == undefined && !isLoading;
+  const loadEntry = todayEntry == undefined && isLoading;
 
   return (
     <div className="flex min-h-screen w-full flex-1 flex-col items-center">
@@ -40,7 +40,7 @@ export function JournalEntryFeed({
         </div>
       ) : loadEntry ? (
         <div className="flex flex-1 flex-row items-center">
-          <CircularLoadingMeter timeLimit="medium" size={120} />
+          <CircularLoadingMeter timeLimit="long" size={120} />
         </div>
       ) : (
         <section className="flex w-96 flex-col items-center gap-4 p-4">
