@@ -12,7 +12,7 @@ export function JournalEntryCard({
   });
 
   return (
-    <div className="flex w-full flex-col gap-2 rounded-sm border bg-slate-200 p-4">
+    <div className="flex w-full flex-col gap-4 rounded-sm bg-black p-4 text-gray-300">
       <Image
         src={imageStr?.[0] ? `data:image/png;base64,${imageStr[0]}` : ""}
         width={300}
