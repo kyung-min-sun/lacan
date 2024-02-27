@@ -41,12 +41,11 @@ export function JournalEntryInput({
       setError("there was an issue with your submission...");
       return;
     }
-
     onCreate(newEntry);
   };
 
   return (
-    <div className="flex w-full flex-col gap-2 p-4">
+    <div className="flex w-full flex-col gap-4">
       <input
         value={entry.title}
         className="rounded-md border border-gray-500 bg-black p-2 text-slate-300

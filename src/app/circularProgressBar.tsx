@@ -15,7 +15,7 @@ export function CircularLoadingMeter({
   return (
     <CircularProgress
       variant="determinate"
-      value={progress}
+      value={progress ?? 0}
       size={size}
       className="text-gray-300"
       thickness={1}

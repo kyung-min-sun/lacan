@@ -15,7 +15,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-black">
+    <main className="min-h-screen w-full bg-black">
       <JournalEntryFeed journalEntries={journalEntries} user={session.user} />
     </main>
   );

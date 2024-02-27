@@ -26,22 +26,24 @@ export function JournalEntryFeed({
   );
 
   const writeEntry = (todayEntry == undefined && !isLoading) || true;
-  const loadEntry = (todayEntry == undefined && isLoading) || false;
+  const loadEntry = (todayEntry == undefined && isLoading) || true;
 
   return (
-    <div className="p-4" style={{ maxWidth: 600 }}>
+    <div className="flex min-h-screen w-full flex-1 flex-col items-center">
       {writeEntry ? (
-        <JournalEntryInput
-          user={user}
-          setIsLoading={setIsLoading}
-          onCreate={(newEntry) => setEntries((e) => [...e, newEntry])}
-        />
+        <div className="flex h-full w-96 flex-1 flex-row items-center">
+          <JournalEntryInput
+            user={user}
+            setIsLoading={setIsLoading}
+            onCreate={(newEntry) => setEntries((e) => [...e, newEntry])}
+          />
+        </div>
       ) : loadEntry ? (
-        <div className="flex flex-row items-center">
+        <div className="flex flex-1 flex-row items-center">
           <CircularLoadingMeter timeLimit="medium" size={120} />
         </div>
       ) : (
-        <section className="flex flex-col items-center gap-4">
+        <section className="flex w-96 flex-col items-center gap-4 p-4">
           {entries
             .sort((e1, e2) => e2.createdAt.getTime() - e1.createdAt.getTime())
             .map((entry) => (

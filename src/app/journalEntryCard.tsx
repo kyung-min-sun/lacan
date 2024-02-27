@@ -16,6 +16,7 @@ export function JournalEntryCard({
       {imageStr ? (
         <Image
           src={imageStr?.[0] ? `data:image/png;base64,${imageStr[0]}` : ""}
+          className="w-96"
           width={300}
           height={300}
           alt={entry.title}
