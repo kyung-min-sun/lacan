@@ -8,8 +8,10 @@ import { type ImageFile, type JournalEntry } from "@prisma/client";
 export function JournalEntryInput({
   user,
   onCreate,
+  setIsLoading,
 }: {
   user: User;
+  setIsLoading: (isLoading: boolean) => void;
   onCreate: (entry: JournalEntry & { images: ImageFile[] }) => void;
 }) {
   const [entry, setEntry] = useState<{ title: string; text: string }>({
@@ -26,15 +28,20 @@ export function JournalEntryInput({
       return;
     }
 
+    setIsLoading(true);
+
     const newEntryPromise = createEntry({ ...entry, createdById: user.id });
     setEntry({ title: "", text: "" });
 
     const newEntry = await newEntryPromise;
 
+    setIsLoading(false);
+
     if (!newEntry) {
       setError("there was an issue with your submission...");
       return;
     }
+
     onCreate(newEntry);
   };
 

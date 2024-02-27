@@ -13,12 +13,16 @@ export function JournalEntryCard({
 
   return (
     <div className="flex w-full flex-col gap-4 rounded-sm bg-black p-4 text-gray-300">
-      <Image
-        src={imageStr?.[0] ? `data:image/png;base64,${imageStr[0]}` : ""}
-        width={300}
-        height={300}
-        alt={entry.title}
-      />
+      {imageStr ? (
+        <Image
+          src={imageStr?.[0] ? `data:image/png;base64,${imageStr[0]}` : ""}
+          width={300}
+          height={300}
+          alt={entry.title}
+        />
+      ) : (
+        <></>
+      )}
       <div className="flex flex-row items-center gap-2">
         <h3 className="text-lg font-medium">{entry.title}</h3>
         <h4 className="text-sm font-normal">
