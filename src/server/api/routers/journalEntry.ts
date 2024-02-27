@@ -16,7 +16,7 @@ export const journalEntryRouter = createTRPCRouter({
     .mutation(async ({ ctx: { db }, input: { text, title, createdById } }) => {
       const openai = new OpenAI();
       const generation = await openai.images.generate({
-        prompt: `Create an image for the following dream, titled ${title}: ${text}`,
+        prompt: `Draw a painting for the following dream. Avoid writing letters and use a Cubist style. The title of the dream is ${title} and the following is a description: ${text}`,
         response_format: "b64_json",
       });
       const imageKeys = await Promise.all(
