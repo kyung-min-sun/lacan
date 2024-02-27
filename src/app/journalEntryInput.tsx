@@ -56,7 +56,7 @@ export function JournalEntryInput({
         }
       />
       <textarea
-        className="min-h-40 rounded-md rounded-sm border border-gray-500 bg-black p-2 text-xs text-slate-300 text-slate-800 placeholder:text-gray-500 focus:outline-slate-800"
+        className="min-h-40 rounded-md rounded-sm border border-gray-500 bg-black p-2 text-xs text-slate-300 placeholder:text-gray-500 focus:outline-slate-800"
         placeholder="a description of your dream"
         value={entry.text}
         onChange={(e) =>
