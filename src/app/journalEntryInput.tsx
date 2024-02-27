@@ -39,30 +39,32 @@ export function JournalEntryInput({
   };
 
   return (
-    <div className="flex w-full flex-col gap-2 bg-slate-200 p-4">
+    <div className="flex w-full flex-col gap-2 p-4">
       <input
         value={entry.title}
-        className="rounded-sm p-2 text-slate-800 
-        placeholder:text-gray-300 focus:outline-slate-500"
-        placeholder="Your Title"
+        className="rounded-md border border-gray-300 bg-black p-2 text-slate-300
+        placeholder:text-gray-500 focus:outline-slate-500"
+        placeholder="My Dream"
         onChange={(e) =>
           setEntry((entry) => ({ ...entry, title: e.target.value }))
         }
       />
       <textarea
-        className="min-h-40 rounded-sm p-2 text-xs text-slate-800 focus:outline-slate-500"
+        className="min-h-40 rounded-md rounded-sm border border-gray-300 bg-black p-2 text-xs text-slate-300 text-slate-800 focus:outline-slate-500"
         value={entry.text}
         onChange={(e) =>
           setEntry((entry) => ({ ...entry, text: e.target.value }))
         }
       />
       {error && <div>{error}</div>}
-      <button
-        className="w-fit rounded-sm border bg-slate-50 p-2 text-sm hover:bg-slate-100"
-        onClick={onSubmit}
-      >
-        Submit
-      </button>
+      <div className="flex flex-row place-content-end">
+        <button
+          className="w-fit rounded-md bg-slate-50 px-4 py-2 text-sm hover:bg-opacity-80"
+          onClick={onSubmit}
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 }

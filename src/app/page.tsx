@@ -15,7 +15,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="">
+    <main className="min-h-screen bg-black">
       <JournalEntryFeed journalEntries={journalEntries} user={session.user} />
     </main>
   );
