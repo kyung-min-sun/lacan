@@ -43,8 +43,8 @@ export function JournalEntryInput({
     if (newEntry.tasks?.length > 0 && newEntry.tasks[0]?.id) {
       for (let i = 0; i < 20; i++) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        const task = await checkTask({ id: newEntry.tasks[0]?.id as number });
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+        const task = await checkTask({ id: newEntry.tasks[0]?.id });
         if (!task || !task.entry || !task.isComplete) continue;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
         newEntry.images?.push(...task.entry?.images);
