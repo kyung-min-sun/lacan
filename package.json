@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "workspaces": [
-    "webapp"
+    "webapp",
+    "worker"
   ],
   "scripts": {
-    "webapp:dev": "npm run dev --workspace=webapp",
-    "worker:start": "bun ./worker/index.ts",
     "postinstall": "zenstack generate && prisma generate && prisma db push"
   },
   "author": "",

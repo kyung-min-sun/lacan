@@ -1,1 +1,1 @@
-worker: npm run worker:start
+worker: npm start --workspace=worker
