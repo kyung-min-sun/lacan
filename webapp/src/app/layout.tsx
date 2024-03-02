@@ -12,7 +12,7 @@ const inter = Inter({
 export const metadata = {
   title: "lacan: dream journal",
   description: "enhance your dreams with ai",
-  icons: [{ rel: "icon", url: "/icon.ico" }],
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
 export default function RootLayout({
