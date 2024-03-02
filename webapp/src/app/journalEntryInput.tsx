@@ -4,6 +4,7 @@ import { useState } from "react";
 import { type User } from "next-auth";
 import { api } from "~/trpc/react";
 import { type ImageFile, type JournalEntry } from "@prisma/client";
+import { twMerge } from "tailwind-merge";
 
 export function JournalEntryInput({
   user,
@@ -83,7 +84,12 @@ export function JournalEntryInput({
       {error && <div>{error}</div>}
       <div className="flex flex-row place-content-end">
         <button
-          className="w-fit rounded-md border border-gray-500 px-4 py-2 text-sm text-gray-500 hover:bg-gray-500/30"
+          className={twMerge(
+            "w-fit rounded-md border border-gray-500 px-4 py-2 text-sm text-gray-500",
+            entry.title?.length > 0 && entry.text?.length > 0
+              ? "border-slate-300 text-slate-300 hover:bg-gray-500/40"
+              : "",
+          )}
           onClick={onSubmit}
         >
           Save
