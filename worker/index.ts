@@ -33,7 +33,7 @@ async function saveFileToCloud(
 async function generateImages({ title, text }: JournalEntry) {
   const openai = new OpenAI();
   const generation = await openai.images.generate({
-    prompt: `Draw a painting for the following dream. Avoid writing letters and use a Cubist style. "${`${title}`.slice(0, 100)} : ${`${text}`.trim().replaceAll(/\s/, " ").slice(0, 500)}"`,
+    prompt: `Draw a painting for the following dream. Avoid writing letters and use a Cubist style. "${`${title}`.slice(0, 100)} : ${`${text}`.trim().replaceAll(/\s/g, " ").slice(0, 500)}"`,
     response_format: "b64_json",
   });
   const imagesKeys = await Promise.all(
