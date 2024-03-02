@@ -4,7 +4,6 @@ import { useState } from "react";
 import { type User } from "next-auth";
 import { api } from "~/trpc/react";
 import { type ImageFile, type JournalEntry } from "@prisma/client";
-import { useFindUniqueImageTask } from "~/lib/hooks";
 
 export function JournalEntryInput({
   user,
