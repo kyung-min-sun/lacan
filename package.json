@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "workspaces": ["webapp"],
+  "workspaces": [
+    "webapp"
+  ],
   "scripts": {
+    "webapp:dev": "npm run dev --workspace=webapp",
+    "worker:start": "bun ./worker/index.ts",
     "postinstall": "zenstack generate && prisma generate && prisma db push"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.10.2"
+    "@prisma/client": "^5.10.2",
+    "bun": "^1.0.29"
   },
   "devDependencies": {
     "prisma": "^5.10.2",

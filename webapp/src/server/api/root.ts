@@ -1,4 +1,5 @@
 import { createTRPCRouter } from "~/server/api/trpc";
+import { imageTaskRouter } from "./routers/imageTask.router";
 import { journalEntryRouter } from "./routers/journalEntry";
 import { s3Router } from "./routers/s3";
 
@@ -9,6 +10,7 @@ import { s3Router } from "./routers/s3";
  */
 export const appRouter = createTRPCRouter({
   journalEntry: journalEntryRouter,
+  imageTask: imageTaskRouter,
   s3: s3Router,
 });
 

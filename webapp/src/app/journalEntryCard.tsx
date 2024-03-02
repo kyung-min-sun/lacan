@@ -30,7 +30,7 @@ export function JournalEntryCard({
           {entry.createdAt.toLocaleDateString()}
         </h4>
       </div>
-      <span className="text-xs">{entry.text}</span>
+      <span className="whitespace-pre-wrap text-xs">{entry.text}</span>
     </div>
   );
 }

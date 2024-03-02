@@ -20,10 +20,21 @@ model JournalEntry {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
     images ImageFile[]
+    tasks ImageTask[]
     createdBy User @relation(fields: [createdById], references: [id])
     createdById String
 
     @@index([title])
+}
+
+/// @@allow('all', true)
+model ImageTask {
+    id Int @id() @default(autoincrement())
+    isComplete Boolean @default(false)
+    entry JournalEntry? @relation(fields: [entryId], references: [id])
+    entryId Int?
+
+    @@index([entryId])
 }
 
 model ImageFile {

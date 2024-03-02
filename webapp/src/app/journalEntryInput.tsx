@@ -4,6 +4,7 @@ import { useState } from "react";
 import { type User } from "next-auth";
 import { api } from "~/trpc/react";
 import { type ImageFile, type JournalEntry } from "@prisma/client";
+import { useFindUniqueImageTask } from "~/lib/hooks";
 
 export function JournalEntryInput({
   user,
@@ -20,6 +21,7 @@ export function JournalEntryInput({
   });
   const [error, setError] = useState<string>();
 
+  const { mutateAsync: checkTask } = api.imageTask.checkTask.useMutation();
   const { mutateAsync: createEntry } = api.journalEntry.create.useMutation();
 
   const onSubmit = async () => {
@@ -35,12 +37,28 @@ export function JournalEntryInput({
 
     const newEntry = await newEntryPromise;
 
+    // TODO: fix this section of unsafe js
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (newEntry.tasks?.length > 0 && newEntry.tasks[0]?.id) {
+      for (let i = 0; i < 20; i++) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        const task = await checkTask({ id: newEntry.tasks[0]?.id as number });
+        if (!task || !task.entry || !task.isComplete) continue;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        newEntry.images?.push(...task.entry?.images);
+        break;
+      }
+    }
+
     setIsLoading(false);
 
     if (!newEntry) {
       setError("there was an issue with your submission...");
       return;
     }
+
     onCreate(newEntry);
   };
 

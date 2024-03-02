@@ -1,7 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
-import { MediaClient } from "~/server/clients/media.client";
-import { OpenAI } from "openai";
 import { z } from "zod";
 
 export const journalEntryRouter = createTRPCRouter({
@@ -14,42 +12,14 @@ export const journalEntryRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx: { db }, input: { text, title, createdById } }) => {
-      const openai = new OpenAI();
-      const generation = await openai.images.generate({
-        prompt: `Draw a painting for the following dream. Avoid writing letters and use a Cubist style. The title of the dream is ${title} and the following is a description: ${text}`,
-        response_format: "b64_json",
-      });
-      const imageKeys = await Promise.all(
-        generation.data
-          .filter(
-            (image): image is { b64_json: string } =>
-              image.b64_json !== undefined,
-          )
-          .map(async ({ b64_json }, i) => ({
-            s3Key: await MediaClient.save(
-              `${title}-${i}.png`,
-              b64_json,
-              "image/png",
-            ),
-          })),
-      );
-
       return await db.journalEntry.create({
         data: {
           title,
           text,
           createdById,
-          images: {
-            createMany: {
-              data: imageKeys.map(({ s3Key }) => ({
-                name: title,
-                s3Key,
-                createdById,
-              })),
-            },
-          },
+          tasks: { create: {} },
         },
-        include: { images: true },
+        include: { images: true, tasks: true },
       });
     }),
 });
