@@ -16,7 +16,7 @@ datasource db {
 
 plugin hooks {
   provider = '@zenstackhq/swr'
-  output = "./src/lib/hooks"
+  output = "./webapp/src/lib/hooks"
 }
 
 model JournalEntry {
