@@ -20,7 +20,7 @@ export default async function Home() {
     <main className="min-h-screen w-full bg-black">
       <Link
         href=""
-        className="fixed flex flex-row items-center gap-2 p-4 text-gray-300"
+        className="fixed flex w-full flex-row items-center gap-2 bg-black p-4 text-gray-300"
       >
         <Image
           src="./icon.svg"

@@ -29,7 +29,7 @@ export function JournalEntryFeed({
   const loadEntry = todayEntry == undefined && isLoading;
 
   return (
-    <div className="flex min-h-screen w-full flex-1 flex-col items-center">
+    <div className="flex min-h-screen w-full flex-1 flex-col items-center py-4">
       {writeEntry ? (
         <div className="flex h-full w-96 flex-1 flex-row items-center">
           <JournalEntryInput
